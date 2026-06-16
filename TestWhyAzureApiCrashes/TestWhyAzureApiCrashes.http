@@ -1,0 +1,6 @@
+@TestWhyAzureApiCrashes_HostAddress = http://localhost:5180
+
+GET {{TestWhyAzureApiCrashes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
