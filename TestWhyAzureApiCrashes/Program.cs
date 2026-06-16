@@ -25,13 +25,17 @@ app.UseHttpsRedirection();
 
 app.UseCors();
     
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// var summaries = new[]
+// {
+//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+// };
+
+
 
 app.MapGet("/weatherforecast", (IConfiguration configuration) =>
 {
+    var summaries = configuration.GetSection("Summaries").Get<string[]>();
+
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
@@ -42,7 +46,7 @@ app.MapGet("/weatherforecast", (IConfiguration configuration) =>
         .ToArray();
     var jsonWeather = configuration["Weather"];
 
-    return jsonWeather;
+    return forecast;
 })
 .WithName("GetWeatherForecast");
 
