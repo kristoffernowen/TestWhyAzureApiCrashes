@@ -32,7 +32,7 @@ app.UseCors();
 
 
 
-app.MapGet("/weatherforecast", (IConfiguration configuration) =>
+app.MapGet("/weatherforecast", (IConfiguration configuration, ILogger<Program> logger) =>
 {
     var summaries = configuration.GetSection("Summaries").Get<string[]>();
 
@@ -45,6 +45,8 @@ app.MapGet("/weatherforecast", (IConfiguration configuration) =>
         ))
         .ToArray();
     var jsonWeather = configuration["Weather"];
+
+    logger.LogInformation("Weather: here we are");
 
     return forecast;
 })
